@@ -3,6 +3,7 @@
 #include "PuzzlePlatformsGameMode.h"
 #include "PuzzlePlatformsCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "PuzzelPlatformsGameInstance.h"
 
 APuzzlePlatformsGameMode::APuzzlePlatformsGameMode()
 {

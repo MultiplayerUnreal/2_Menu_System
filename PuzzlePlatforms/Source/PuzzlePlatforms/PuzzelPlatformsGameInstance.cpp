@@ -3,15 +3,34 @@
 #include "PuzzelPlatformsGameInstance.h"
 
 #include "Engine/Engine.h"
+#include "UObject/ConstructorHelpers.h"
+#include "PlatformTrigger.h"
+#include "Blueprint/UserWidget.h"
 
 UPuzzelPlatformsGameInstance::UPuzzelPlatformsGameInstance(const FObjectInitializer & ObjectInitializer)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Constructor called"))
+	static ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
+	if (!ensure(MenuBPClass.Class != nullptr)) return;
+	MenuClass = MenuBPClass.Class;
 }
 
 void UPuzzelPlatformsGameInstance::Init()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Init() called"))
+	UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *MenuClass->GetName());
+}
+
+void UPuzzelPlatformsGameInstance::BeginPlay()
+{
+	LoadMenu();
+}
+
+void UPuzzelPlatformsGameInstance::LoadMenu()
+{
+	if (!ensure(MenuClass != nullptr)) return;
+	UUserWidget* Menu = CreateWidget<UUserWidget>(this, MenuClass);
+
+	if (!ensure(Menu != nullptr)) return;
+	Menu->AddToViewport();
 }
 
 void UPuzzelPlatformsGameInstance::Host()
@@ -35,5 +54,3 @@ void UPuzzelPlatformsGameInstance::Join(const FString& Address)
 	if (!ensure(PlayerController != nullptr)) return;
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 }
-
-
