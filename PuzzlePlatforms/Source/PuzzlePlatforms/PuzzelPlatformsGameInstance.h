@@ -20,8 +20,6 @@ public:
 
 	virtual void Init();
 
-	virtual void BeginPlay();
-
 	UFUNCTION(Exec, BlueprintCallable)
 	void LoadMenu();
 
