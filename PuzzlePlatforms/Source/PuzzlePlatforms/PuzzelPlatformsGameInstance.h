@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "MenuSystem/MenuInterface.h"
 #include "PuzzelPlatformsGameInstance.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PUZZLEPLATFORMS_API UPuzzelPlatformsGameInstance : public UGameInstance
+class PUZZLEPLATFORMS_API UPuzzelPlatformsGameInstance : public UGameInstance, public IMenuInterface
 {
 	GENERATED_BODY()
 
 public:
-
 	UPuzzelPlatformsGameInstance(const FObjectInitializer & ObjectInitializer);
 
 	virtual void Init();
@@ -31,4 +31,6 @@ public:
 
 private:
 	TSubclassOf<class UUserWidget> MenuClass;
+
+	class UMainMenu* Menu;
 };
