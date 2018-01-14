@@ -21,7 +21,13 @@ public:
 	virtual void Init();
 
 	UFUNCTION(Exec, BlueprintCallable)
-	void LoadMenu();
+	void LoadMainMenu();
+
+	UFUNCTION(Exec, BlueprintCallable)
+	void LoadInGameMenu();
+
+	UFUNCTION(Exec, BlueprintCallable)
+	void QuitToMainMenu();
 
 	UFUNCTION(Exec)
 	void Host();
@@ -30,7 +36,11 @@ public:
 	void Join(const FString& Address);
 
 private:
-	TSubclassOf<class UUserWidget> MenuClass;
+	TSubclassOf<class UUserWidget> MainMenuClass;
 
-	class UMainMenu* Menu;
+	TSubclassOf<class UUserWidget> InGameMenuClass;
+
+	class UMainMenu* MainMenu;
+	
+	class UInGameMenu* InGameMenu;
 };
